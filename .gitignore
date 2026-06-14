@@ -11,3 +11,6 @@ venv/
 
 build/
 dist/
+
+storage/*
+!storage/.gitkeep

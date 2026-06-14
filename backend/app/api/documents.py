@@ -6,6 +6,8 @@ from fastapi import APIRouter, File, HTTPException, UploadFile, status
 
 from app.core.config import settings
 from app.models.schemas import DocumentUploadResponse, MessageResponse
+from app.services.chunker import chunk_pages
+from app.services.document_parser import parse_pdf
 
 
 router = APIRouter()
@@ -45,8 +47,28 @@ def upload_document(file: UploadFile = File(...)) -> DocumentUploadResponse:
     finally:
         file.file.close()
 
+    try:
+        pages = parse_pdf(str(file_path))
+    except ValueError as exc:
+        shutil.rmtree(document_dir, ignore_errors=True)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Could not parse uploaded PDF",
+        ) from exc
+
+    try:
+        chunks = chunk_pages(document_id, pages)
+    except ValueError as exc:
+        shutil.rmtree(document_dir, ignore_errors=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Could not chunk uploaded PDF",
+        ) from exc
+
     return DocumentUploadResponse(
         document_id=document_id,
         file_name=file_name,
-        status="uploaded",
+        pages=len(pages),
+        chunks=len(chunks),
+        status="chunked",
     )

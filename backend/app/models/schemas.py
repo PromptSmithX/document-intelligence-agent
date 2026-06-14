@@ -12,6 +12,8 @@ class MessageResponse(BaseModel):
 class DocumentUploadResponse(BaseModel):
     document_id: str
     file_name: str
+    pages: int
+    chunks: int
     status: str
 
 

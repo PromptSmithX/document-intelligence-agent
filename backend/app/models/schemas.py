@@ -43,3 +43,22 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     answer: str
     sources: list[str]
+
+
+class RAGChatRequest(BaseModel):
+    document_id: str
+    question: str
+    top_k: int = 5
+
+
+class RAGCitation(BaseModel):
+    page: int
+    chunk_id: str
+    score: float
+    text: str
+
+
+class RAGChatResponse(BaseModel):
+    answer: str
+    citations: list[RAGCitation]
+    latency_seconds: float

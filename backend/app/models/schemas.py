@@ -17,6 +17,25 @@ class DocumentUploadResponse(BaseModel):
     status: str
 
 
+class DocumentSearchRequest(BaseModel):
+    document_id: str
+    query: str
+    top_k: int = 5
+
+
+class DocumentSearchResult(BaseModel):
+    chunk_id: str
+    document_id: str
+    page: int
+    chunk_index: int
+    score: float
+    content: str
+
+
+class DocumentSearchResponse(BaseModel):
+    results: list[DocumentSearchResult]
+
+
 class ChatRequest(BaseModel):
     question: str
 

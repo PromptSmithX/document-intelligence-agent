@@ -9,6 +9,14 @@ class MessageResponse(BaseModel):
     message: str
 
 
+class DocumentListItem(BaseModel):
+    document_id: str
+    file_name: str
+    pages: int
+    chunks: int
+    created_at: str
+
+
 class DocumentUploadResponse(BaseModel):
     document_id: str
     file_name: str

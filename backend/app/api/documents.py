@@ -1,15 +1,17 @@
+import json
 import shutil
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 
 from fastapi import APIRouter, File, HTTPException, UploadFile, status
 
 from app.core.config import settings
 from app.models.schemas import (
+    DocumentListItem,
     DocumentSearchRequest,
     DocumentSearchResponse,
     DocumentUploadResponse,
-    MessageResponse,
 )
 from app.services.chunker import chunk_pages
 from app.services.document_parser import parse_pdf
@@ -20,9 +22,55 @@ from app.services.vector_store import ensure_collection, search_chunks, upsert_c
 router = APIRouter()
 
 
-@router.get("", response_model=MessageResponse)
-def list_documents() -> MessageResponse:
-    return MessageResponse(message="Documents router is ready")
+def _metadata_path(document_dir: Path) -> Path:
+    return document_dir / "metadata.json"
+
+
+def _write_document_metadata(
+    document_dir: Path,
+    document_id: str,
+    file_name: str,
+    pages: int,
+    chunks: int,
+) -> None:
+    metadata = {
+        "document_id": document_id,
+        "file_name": file_name,
+        "pages": pages,
+        "chunks": chunks,
+        "created_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+    }
+
+    _metadata_path(document_dir).write_text(
+        json.dumps(metadata, indent=2),
+        encoding="utf-8",
+    )
+
+
+def _read_document_metadata(document_dir: Path) -> DocumentListItem | None:
+    metadata_file = _metadata_path(document_dir)
+    if not metadata_file.exists():
+        return None
+
+    try:
+        metadata = json.loads(metadata_file.read_text(encoding="utf-8"))
+        return DocumentListItem(**metadata)
+    except (OSError, ValueError, TypeError):
+        return None
+
+
+@router.get("", response_model=list[DocumentListItem])
+def list_documents() -> list[DocumentListItem]:
+    documents = []
+    for document_dir in settings.storage_dir.glob("doc_*"):
+        if not document_dir.is_dir():
+            continue
+
+        metadata = _read_document_metadata(document_dir)
+        if metadata is not None:
+            documents.append(metadata)
+
+    return sorted(documents, key=lambda document: document.created_at, reverse=True)
 
 
 @router.post("/search", response_model=DocumentSearchResponse)
@@ -109,6 +157,13 @@ def upload_document(file: UploadFile = File(...)) -> DocumentUploadResponse:
         embeddings = embed_texts([chunk["content"] for chunk in chunks])
         ensure_collection()
         upsert_chunks(chunks, embeddings)
+        _write_document_metadata(
+            document_dir=document_dir,
+            document_id=document_id,
+            file_name=file_name,
+            pages=len(pages),
+            chunks=len(chunks),
+        )
     except Exception as exc:
         shutil.rmtree(document_dir, ignore_errors=True)
         raise HTTPException(

@@ -9,6 +9,12 @@ class MessageResponse(BaseModel):
     message: str
 
 
+class DocumentUploadResponse(BaseModel):
+    document_id: str
+    file_name: str
+    status: str
+
+
 class ChatRequest(BaseModel):
     question: str
 

@@ -1,0 +1,46 @@
+{
+  "dataset_name": "synthetic_policy_v1",
+  "document_path": "sample_data/eval_policy.pdf",
+  "cases": [
+    {
+      "id": "payment_terms",
+      "question": "When must approved invoices be paid and in what currency?",
+      "answerable": true,
+      "expected_answer": "Approved invoices must be paid within 45 calendar days of the invoice date in USD.",
+      "expected_pages": [1],
+      "required_terms": ["45 calendar days", "invoice", "USD"]
+    },
+    {
+      "id": "termination_notice",
+      "question": "How much notice is required before either party may terminate for material breach?",
+      "answerable": true,
+      "expected_answer": "Either party must provide 30 days written notice and an opportunity to cure.",
+      "expected_pages": [2],
+      "required_terms": ["30 days", "written notice", "cure"]
+    },
+    {
+      "id": "governing_law",
+      "question": "Which law governs the agreement and where is venue?",
+      "answerable": true,
+      "expected_answer": "The agreement is governed by New York law, with venue in New York County, New York.",
+      "expected_pages": [3],
+      "required_terms": ["New York", "New York County", "venue"]
+    },
+    {
+      "id": "support_sla",
+      "question": "What is the response time for critical support incidents?",
+      "answerable": true,
+      "expected_answer": "Critical support incidents receive an initial response within 4 business hours.",
+      "expected_pages": [4],
+      "required_terms": ["critical", "4 business hours", "initial response"]
+    },
+    {
+      "id": "renewal_discount_unanswerable",
+      "question": "What renewal discount does the policy guarantee after the first year?",
+      "answerable": false,
+      "expected_answer": "I could not find this information in the document.",
+      "expected_pages": [],
+      "required_terms": []
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "run": {
+    "generated_at": "2026-06-15T10:45:06+00:00",
+    "dataset_name": "synthetic_policy_v1",
+    "document_path": "sample_data/eval_policy.pdf",
+    "document_id": "doc_3a6846d48f734b15a19c0ad177a24274",
+    "top_k": 5,
+    "judge_enabled": false,
+    "upload_response": {
+      "document_id": "doc_3a6846d48f734b15a19c0ad177a24274",
+      "file_name": "eval_policy.pdf",
+      "pages": 5,
+      "chunks": 5,
+      "status": "indexed"
+    },
+    "warnings": []
+  },
+  "aggregate": {
+    "total_cases": 5,
+    "successful_cases": 5,
+    "error_cases": 0,
+    "answerable_cases": 4,
+    "unanswerable_cases": 1,
+    "hit_at_5": 1.0,
+    "mrr_at_5": 1.0,
+    "avg_top_score": 0.600869576,
+    "answer_pass_rate": 0.6,
+    "answer_term_pass_rate": 0.5,
+    "no_answer_pass_rate": 1.0,
+    "citation_pass_rate": 1.0,
+    "latency_avg": 2.6439999999999997,
+    "latency_p50": 2.6,
+    "latency_p95": 3.07,
+    "judge": null
+  },
+  "cases": [
+    {
+      "id": "payment_terms",
+      "question": "When must approved invoices be paid and in what currency?",
+      "answerable": true,
+      "expected_answer": "Approved invoices must be paid within 45 calendar days of the invoice date in USD.",
+      "expected_pages": [
+        1
+      ],
+      "required_terms": [
+        "45 calendar days",
+        "invoice",
+        "USD"
+      ],
+      "status": "ok",
+      "retrieval": {
+        "hit": true,
+        "mrr": 1.0,
+        "first_relevant_rank": 1,
+        "top_score": 0.6358824,
+        "retrieved_pages": [
+          1,
+          4,
+          5,
+          3,
+          2
+        ]
+      },
+      "answer": {
+        "answer": "Approved invoices must be paid within 45 calendar days of the invoice date. All payments must be made in USD by electronic transfer unless both parties agree otherwise in writing.",
+        "answer_pass": true,
+        "answer_term_pass": true,
+        "no_answer_pass": null,
+        "citation_page_pass": true,
+        "latency_seconds": 2.98,
+        "citation_pages": [
+          1,
+          4,
+          5,
+          3,
+          2
+        ],
+        "citation_count": 5
+      }
+    },
+    {
+      "id": "termination_notice",
+      "question": "How much notice is required before either party may terminate for material breach?",
+      "answerable": true,
+      "expected_answer": "Either party must provide 30 days written notice and an opportunity to cure.",
+      "expected_pages": [
+        2
+      ],
+      "required_terms": [
+        "30 days",
+        "written notice",
+        "cure"
+      ],
+      "status": "ok",
+      "retrieval": {
+        "hit": true,
+        "mrr": 1.0,
+        "first_relevant_rank": 1,
+        "top_score": 0.713529,
+        "retrieved_pages": [
+          2,
+          5,
+          1,
+          3,
+          4
+        ]
+      },
+      "answer": {
+        "answer": "Either party may terminate the agreement for material breach only after giving 30 days written notice to the breaching party.",
+        "answer_pass": false,
+        "answer_term_pass": false,
+        "no_answer_pass": null,
+        "citation_page_pass": true,
+        "latency_seconds": 2.3,
+        "citation_pages": [
+          2,
+          5,
+          1,
+          3,
+          4
+        ],
+        "citation_count": 5
+      }
+    },
+    {
+      "id": "governing_law",
+      "question": "Which law governs the agreement and where is venue?",
+      "answerable": true,
+      "expected_answer": "The agreement is governed by New York law, with venue in New York County, New York.",
+      "expected_pages": [
+        3
+      ],
+      "required_terms": [
+        "New York",
+        "New York County",
+        "venue"
+      ],
+      "status": "ok",
+      "retrieval": {
+        "hit": true,
+        "mrr": 1.0,
+        "first_relevant_rank": 1,
+        "top_score": 0.5793872,
+        "retrieved_pages": [
+          3,
+          1,
+          2,
+          4,
+          5
+        ]
+      },
+      "answer": {
+        "answer": "The agreement is governed by the laws of the State of New York, without regard to conflict of law principles. Any lawsuit or proceeding must be brought exclusively in the state or federal courts located in New York County, New York.",
+        "answer_pass": false,
+        "answer_term_pass": false,
+        "no_answer_pass": null,
+        "citation_page_pass": true,
+        "latency_seconds": 2.6,
+        "citation_pages": [
+          3,
+          1,
+          2,
+          4,
+          5
+        ],
+        "citation_count": 5
+      }
+    },
+    {
+      "id": "support_sla",
+      "question": "What is the response time for critical support incidents?",
+      "answerable": true,
+      "expected_answer": "Critical support incidents receive an initial response within 4 business hours.",
+      "expected_pages": [
+        4
+      ],
+      "required_terms": [
+        "critical",
+        "4 business hours",
+        "initial response"
+      ],
+      "status": "ok",
+      "retrieval": {
+        "hit": true,
+        "mrr": 1.0,
+        "first_relevant_rank": 1,
+        "top_score": 0.6207876,
+        "retrieved_pages": [
+          4,
+          5,
+          1,
+          2,
+          3
+        ]
+      },
+      "answer": {
+        "answer": "Critical support incidents receive an initial response within 4 business hours after a complete ticket is submitted.",
+        "answer_pass": true,
+        "answer_term_pass": true,
+        "no_answer_pass": null,
+        "citation_page_pass": true,
+        "latency_seconds": 2.27,
+        "citation_pages": [
+          4,
+          5,
+          1,
+          2,
+          3
+        ],
+        "citation_count": 5
+      }
+    },
+    {
+      "id": "renewal_discount_unanswerable",
+      "question": "What renewal discount does the policy guarantee after the first year?",
+      "answerable": false,
+      "expected_answer": "I could not find this information in the document.",
+      "expected_pages": [],
+      "required_terms": [],
+      "status": "ok",
+      "retrieval": {
+        "hit": false,
+        "mrr": 0.0,
+        "first_relevant_rank": null,
+        "top_score": 0.45476168,
+        "retrieved_pages": [
+          5,
+          1,
+          4,
+          2,
+          3
+        ]
+      },
+      "answer": {
+        "answer": "I could not find this information in the document.",
+        "answer_pass": true,
+        "answer_term_pass": null,
+        "no_answer_pass": true,
+        "citation_page_pass": null,
+        "latency_seconds": 3.07,
+        "citation_pages": [
+          5,
+          1,
+          4,
+          2,
+          3
+        ],
+        "citation_count": 5
+      }
+    }
+  ]
+}

@@ -8,12 +8,6 @@ This project is built as an AI Engineering portfolio project, focusing on produc
 
 ## 🚀 Demo
 
-> Replace these placeholders with your own screenshots / demo video.
-
-- 🎥 Demo video: `Add your demo video link here`
-- 🖼️ Screenshots: `docs/screenshots/`
-- 📄 Sample document: `sample_data/sample_contract.pdf`
-
 ### Example Flow
 
 1. Upload a PDF document.
